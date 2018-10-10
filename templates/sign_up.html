@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    {% if form.errors %}
+    <div class="alert alert-warning" role="alert"><strong>Erreur! </strong>Votre username et mot de passe sont incorrects. Saisissez à nouveau...</div>
+{% endif %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+
+    <div class="alert alert-warning" role="alert">Votre compte ne peux pas acceder a cette page. Pour procéder,
+    s'il vous plait utiliser un autre compte qui a l'accés.</div>
+    {% else %}
+
+    <div class="alert alert-warning" role="alert">Please login to see this page.</div>
+    {% endif %}
+{% endif %}
+<style>
+
+/* body {
+    background-image: url(https://source.unsplash.com/93q1ul4UKEg);
+    background-size: cover;
+} */
+
+.form_style
+  {
+    margin: 10% auto;
+  }
+  .btn{
+    color: #fff;
+    background-color:  #a6ff4d;
+    width: 120px;
+    font-size: 18px;
+  }
+  .btn-link{
+    color: #fff;
+    font-size: 18px;
+  }
+  .panel-transparent {
+        background: none;
+    }
+
+    .panel-transparent .panel-heading{
+        background: rgba(122, 130, 136, 0.2)!important;
+    }
+
+    .panel-transparent .panel-body{
+        background: rgba(46, 51, 56, 0.2)!important;
+    }
+          body {
+            /* background-color:#000; */
+            background-image: url(https://source.unsplash.com/EpJOBZNzrVo);
+            background-size: cover;
+        }
+</style>
+<div class="container">
+    <div class="row form_style" style="text-align:center;">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="login-panel panel panel-transparent">
+                <div class="panel-heading">
+                    <h3 class="panel-title"></h3>
+                </div>
+                <div class="panel-body">
+                    <form method="post" action="{% url 'register' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{ form.username }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.first_name }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.last_name }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.email }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.password1 }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.password2 }}
+                        </div>
+                            <div class="form-group">
+                            <input id="register" class="btn btn-success btn-sm" type="submit" value="S'inscrire" />
+                        </div>
+                        <input type="hidden" name="next" value="{{ next }}" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+ body {
+            /* background-color:#000; */
+            background-image: url(https://source.unsplash.com/EpJOBZNzrVo);
+            background-size: cover;
+        }
+
+.btn-default{
+    background-color: rgb(204, 199, 199);
+}
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-1">
+                <div class="panel panel-default" style=" margin: 20% auto 2% 30%">
+                        <div class="panel-heading"><h4><strong>Votre Profil</strong></h4> </div>
+                            <table id="profile_table" class="table">
+                                    <tr>
+                                        <td>Username</td>
+                                        <td>{{user.username}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>First Name</td>
+                                        <td>{{user.first_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Last Name</td>
+                                        <td>{{user.last_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email</td>
+                                        <td id="profile_email">{{user.email}}</td>
+                                    </tr>
+                                </table>
+                </div>
+        </div>
+            
+    </div>
+
+        
+   <a href="#"><button id="modifier_email" class="btn btn-default" data-toggle="modal" data-target="#myModal" style="margin-left:15%"><strong>Modifier vos informations</strong></button></a>
+
+   <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Modifier votre email</h4>
+            </div>
+            <form id="update_form" method="post">
+            <div class="modal-body">
+                    
+                            {% csrf_token %}
+                                {{ form.email.label_tag }}
+                                {{ form.email }}
+                                   
+                                
+                    
+            </div>
+            <div class="modal-footer">
+              <button id="update_email" class="btn btn-primary">Modifier</button>          
+              <input type="hidden" name="next" value="{{ next }}" />
+              <button type="submit" name="submit" class="btn btn-default" data-dismiss="modal">Fermer</button>
+            </div>
+        </form>
+          </div>
+          
+        </div>
+      </div>
+</div>
+{% endblock %}
+
+
+{% block javascript %}
+
+
+<script>
+     $(document).on('submit','#update_form',function(e){
+        e.preventDefault();
+        console.log("form submitted!");
+        $.ajax({
+            type:'POST',
+            url: '/',
+            data:{email: $('#id_email').val(),
+            csrfmiddlewaretoken: '{{ csrf_token }}'},
+            success: function(data){
+                 $("#myModal").modal("hide");
+                 $('body').html(data);
+
+            } 
+        })
+    })
+</script>
+
+{% endblock %}
+

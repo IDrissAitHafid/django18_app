@@ -1,0 +1,71 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+	<style type="text/css">	
+		body{
+			background: #D9E8F7;
+		}
+		#container{
+					position: relative;
+					margin:0 auto;
+					max-width: 400px;
+				}
+		
+		.loginContainer{
+			width:25%;
+			margin: 10% auto;
+		}
+		</style>
+    <title>Ayomi Exercice</title>
+    <!-- Core CSS - Include with every page -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+</head>
+<body>
+        <nav class="navbar navbar-inverse navbar-default">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-nav-demo" aria-expanded="false">
+                        <span class="sr-only">Toggle nav</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>	
+                        </button>
+                        <a href="{% url 'profile'%}" class="navbar-brand" style="font-family: Pacifico">Ayomi_EXO</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-nav-demo">
+                        <ul class="nav navbar-nav">
+                            <li><a href="{% url 'profile'%}">Profil</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                        {% if user.is_authenticated %}
+                        <li><a href="{% url 'profile'%}" style="text-transform: uppercase;">{{ user.username }}</a></li>
+                            <li><a id="log_out_nav" href="/logout">Se déconnecter <i class="fa fa-user-minus"></i></a></li>
+                            
+                        {% else %}
+                        <li><a href="{% url 'django.contrib.auth.views.login' %}">Se connecter <i class="fa fa-user"></i></a></li>
+                        <li><a id="sign_up_nav" href="/register">S'inscrire <i class="fa fa-user-plus"></i></a></li>
+                        {% endif %}
+                        </ul>
+                    </div>	
+                </div>
+            </nav>
+            <div class="container">
+                {% block content %}
+                {% endblock %}
+            </div>
+
+<!-- Core Scripts - Include with every page -->
+
+<script src = "{% static 'js/jquery-2.1.4.min.js' %}"></script>
+<script src = "{% static 'js/bootstrap.min.js' %}"></script>
+{% block javascript %}
+{% endblock %}
+
+</body>
+</html>
