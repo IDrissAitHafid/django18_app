@@ -4,7 +4,7 @@
 -Si vous avez éxecuté les tests selenium pour la première fois, et vous voulez tester une deuxième fois il faut changer les informations pour sign up à l'application (ligne 42 - ligne 48).
 -Les tests s'executent sur le navigateur Firefox.
 
-#Installation:
+# Installation:
 
 Clone this repository.
 
